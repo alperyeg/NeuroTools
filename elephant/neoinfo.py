@@ -1,5 +1,5 @@
 import numpy as np
-from neo.core import Block, Segment, SpikeTrain, AnalogSignal, EpochArray, \
+from neo.core import Block, Segment, SpikeTrain, AnalogSignal, Epoch, \
     RecordingChannel, RecordingChannelGroup, Unit
 
 
@@ -58,7 +58,7 @@ class NeoInfo(object):
           trials containing one signal each
         * allow for other list-based or dict-based representations of trials
         * allow for representations of trials as single segment or single
-          AnalogSignal or single SpikeTrain, together with an EpochArray?
+          AnalogSignal or single SpikeTrain, together with an Epoch?
         * add more conditions
         * improve error checking for setting conditions
 
@@ -106,7 +106,7 @@ class NeoInfo(object):
             neo.Segment
             neo.SpikeTrain
             neo.AnalogSignal
-            neo.EpochArray
+            neo.Epoch
             neo.RecordingChannel
             neo.RecordingChannelGroup
             List of neo.SpikeTrain objects
@@ -127,13 +127,13 @@ class NeoInfo(object):
                 self._is_spike_train_lst = True
             elif type(self._input[0]) is AnalogSignal:
                 self._is_analog_signal_lst = True
-            elif type(self._input[0]) is EpochArray:
+            elif type(self._input[0]) is Epoch:
                 self._is_epoch_lst = True
         elif type(self._input) is SpikeTrain:
             self._is_spike_train = True
         elif type(self._input) is AnalogSignal:
             self._is_analog_signal = True
-        elif type(self._input) is EpochArray:
+        elif type(self._input) is Epoch:
             self._is_epoch = True
         elif type(self._input) is RecordingChannel:
             self._is_recording_channel = True
@@ -157,7 +157,7 @@ class NeoInfo(object):
             neo.Segment
             neo.SpikeTrain
             neo.AnalogSignal
-            neo.EpochArray
+            neo.Epoch
             neo.RecordingChannel
             neo.RecordingChannelGroup
             List of neo.SpikeTrain objects
@@ -172,7 +172,7 @@ class NeoInfo(object):
             neo.Segment : "Segment"
             neo.SpikeTrain : "SpikeTrain"
             neo.AnalogSignal : "AnalogSignal"
-            neo.EpochArray : "EpochArray"
+            neo.Epoch : "Epoch"
             neo.RecordingChannel : "RecordingChannel"
             neo.RecordingChannelGroup : "RecordingChannelGroup"
             List of neo.SpikeTrain objects : 'SpikeTrain List"
@@ -193,9 +193,9 @@ class NeoInfo(object):
             return "AnalogSignal List"
         elif self._is_epoch:
             if type(self._input) is list:
-                return "EpochArray List"
-            elif type(self._input) is EpochArray:
-                return "EpochArray"
+                return "Epoch List"
+            elif type(self._input) is Epoch:
+                return "Epoch"
         elif self._is_recording_channel:
             return "RecordingChannel"
         elif self._is_recording_channel_group:
@@ -1876,26 +1876,26 @@ class NeoInfo(object):
 
     def has_epochs(self):
         """
-        Checks if given input has EpochArrays.
+        Checks if given input has Epochs.
 
         Return
         ------
         bool :
-            True, if given input has a list of EpochArrays or is an EpochArray
+            True, if given input has a list of Epochs or is an Epoch
             object.
             False, otherwise.
         """
-        # Is already an EpochArray
+        # Is already an Epoch
         if self._is_epoch:
             return True
         elif self._is_block:
             for seg in self._input.segments:
-                for ep in seg.epocharrays:
-                    if type(ep) is EpochArray and np.size(ep.times) > 0:
+                for ep in seg.epochs:
+                    if type(ep) is Epoch and np.size(ep.times) > 0:
                         return True
         elif self._is_segment:
-            for ep in self._input.epocharrays:
-                if type(ep) is EpochArray and np.size(ep.times) > 0:
+            for ep in self._input.epochs:
+                if type(ep) is Epoch and np.size(ep.times) > 0:
                     return True
         return False
 
