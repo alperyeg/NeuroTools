@@ -326,7 +326,7 @@ class NeoInfo(object):
 
         """
         # Set conditions in dictionary
-        for (cond, default) in self.d_conditions.iteritems():
+        for (cond, default) in self.d_conditions.items():
             self.d_conditions[cond] = kwargs.get(cond, default)
 
         # Now apply the conditions
