@@ -974,9 +974,9 @@ class NeoInfo(object):
         # in each trial;
         # first unzips the list, then finds the min/max for each tuple position
 
-        def x_min(x): return map(min, zip(*x))[0]
+        def x_min(x): return list(map(min, zip(*x)))[0]
 
-        def y_max(y): return map(max, zip(*y))[1]
+        def y_max(y): return list(map(max, zip(*y)))[1]
 
         if self._is_block:
             for tr_id in trial_list:
@@ -2144,9 +2144,9 @@ class NeoInfo(object):
             # in each trial;
             # first unzips the list, then finds the min/max for each tuple
             # position
-            def x_min(x): return map(min, zip(*x))[0]
+            def x_min(x): return list(map(min, zip(*x)))[0]
 
-            def y_max(y): return map(max, zip(*y))[1]
+            def y_max(y): return list(map(max, zip(*y)))[1]
 
             for i, idx in enumerate(trial_id):
                 seg = self._input.segments[idx]
