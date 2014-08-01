@@ -171,7 +171,7 @@ def fano(data):
             * or the valid trials are not of equal length
 
     Example
-    -------d
+    -------
     This example creates 300 spike trains containing up to 20 spikes each, and
     calculates the Fano factor.
 
