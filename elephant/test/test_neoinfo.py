@@ -336,7 +336,7 @@ class NeoInfoTestCase(unittest.TestCase):
         self.assertEqual(ni2.get_num_spiketrains_of_valid_trial(), [(3, 1)])
         valid_st = ni2.get_spiketrains_from_valid_trials()[0][1][0].magnitude
         # self.assertTrue(np.array_equal(valid_st, st4.magnitude))
-        self.assertItemsEqual(valid_st, st4.magnitude)
+        self.assertCountEqual(valid_st, st4.magnitude)
         self.assertEqual(ni2.get_num_analogsignals_of_valid_trial(), 0)
 
         # Test with take first element if there is overlap
