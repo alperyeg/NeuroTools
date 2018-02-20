@@ -38,8 +38,8 @@ env:
       NUMPY_VERSION="1.10.4" SCIPY_VERSION="0.16.1" SIX_VERSION="1.10.0"
       MPI_VERSION="2.0.0" COVERAGE="true" MPI="true"
 
-install: source continuous_integration/install.sh
-script: bash continuous_integration/test_script.sh
+install: source continuous_integration/travis/install.sh
+script: bash continuous_integration/travis/test_script.sh
 after_success:
     - if [[ "$COVERAGE" == "true" ]]; then coveralls || echo "failed"; fi
 cache: apt
