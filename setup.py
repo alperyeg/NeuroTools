@@ -9,7 +9,7 @@ except ImportError:
     from urllib import urlretrieve
 
 long_description = open("README.rst").read()
-install_requires = ['neo>0.3.3',
+install_requires = ['neo>=0.5.2',
                     'numpy>=1.8.2',
                     'quantities>=0.10.1',
                     'scipy>=0.14.0',
