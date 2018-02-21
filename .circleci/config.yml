@@ -55,6 +55,7 @@ jobs:
       # run tests!
       - run:
           name: run tests
+          timeout: 1200
           command: |
             . venv/bin/activate
             nosetests -v --with-coverage --cover-package=elephant
@@ -112,6 +113,7 @@ jobs:
       # run tests!
       - run:
           name: run tests
+          timeout: 1200
           command: |
             . venv2/bin/activate
             nosetests -v --with-coverage --cover-package=elephant
