@@ -30,9 +30,10 @@ if [[ "$DISTRIB" == "conda_min" ]]; then
     # Configure the conda environment and put it in the path using the
     # provided versions
     conda create -n testenv --yes python=$PYTHON_VERSION pip nose coverage \
-        six=$SIX_VERSION numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION neo>=$NEO_VERSION
+        six=$SIX_VERSION numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION
     source activate testenv
     conda install libgfortran=1
+    pip install neo>=$NEO_VERSION
 
     if [[ "$INSTALL_MKL" == "true" ]]; then
         # Make sure that MKL is used
@@ -59,8 +60,9 @@ elif [[ "$DISTRIB" == "conda" ]]; then
     # Configure the conda environment and put it in the path using the
     # provided versions
     conda create -n testenv --yes python=$PYTHON_VERSION pip nose coverage six=$SIX_VERSION \
-        numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION pandas=$PANDAS_VERSION scikit-learn  neo>=$NEO_VERSION
+        numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION pandas=$PANDAS_VERSION scikit-learn
     source activate testenv
+    pip install neo>=$NEO_VERSION
 
     if [[ "$INSTALL_MKL" == "true" ]]; then
         # Make sure that MKL is used
@@ -93,8 +95,9 @@ elif [[ "$DISTRIB" == "mpi" ]]; then
     # Configure the conda environment and put it in the path using the
     # provided versions
     conda create -n testenv --yes python=$PYTHON_VERSION pip nose coverage six=$SIX_VERSION \
-        numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION scikit-learn mpi4py=$MPI_VERSION neo>=$NEO_VERSION
+        numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION scikit-learn mpi4py=$MPI_VERSION
     source activate testenv
+    pip install neo>=$NEO_VERSION
 
     if [[ "$INSTALL_MKL" == "true" ]]; then
         # Make sure that MKL is used
