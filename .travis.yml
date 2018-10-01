@@ -16,6 +16,9 @@ python:
   - 2.7.13     
       
 env:
+  global:
+    # minimal supported neo version, pip will install neo>=0.5.0
+    NEO_VERSION="0.5.0"
   matrix:
     # This environment tests the newest supported anaconda env
     - DISTRIB="conda" PYTHON_VERSION="2.7" INSTALL_MKL="true"

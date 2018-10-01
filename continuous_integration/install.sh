@@ -30,7 +30,7 @@ if [[ "$DISTRIB" == "conda_min" ]]; then
     # Configure the conda environment and put it in the path using the
     # provided versions
     conda create -n testenv --yes python=$PYTHON_VERSION pip nose coverage \
-        six=$SIX_VERSION numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION
+        six=$SIX_VERSION numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION neo>=$NEO_VERSION
     source activate testenv
     conda install libgfortran=1
 
@@ -59,7 +59,7 @@ elif [[ "$DISTRIB" == "conda" ]]; then
     # Configure the conda environment and put it in the path using the
     # provided versions
     conda create -n testenv --yes python=$PYTHON_VERSION pip nose coverage six=$SIX_VERSION \
-        numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION pandas=$PANDAS_VERSION scikit-learn
+        numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION pandas=$PANDAS_VERSION scikit-learn  neo>=$NEO_VERSION
     source activate testenv
 
     if [[ "$INSTALL_MKL" == "true" ]]; then
@@ -93,7 +93,7 @@ elif [[ "$DISTRIB" == "mpi" ]]; then
     # Configure the conda environment and put it in the path using the
     # provided versions
     conda create -n testenv --yes python=$PYTHON_VERSION pip nose coverage six=$SIX_VERSION \
-        numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION scikit-learn mpi4py=$MPI_VERSION
+        numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION scikit-learn mpi4py=$MPI_VERSION neo>=$NEO_VERSION
     source activate testenv
 
     if [[ "$INSTALL_MKL" == "true" ]]; then
@@ -109,10 +109,6 @@ elif [[ "$DISTRIB" == "mpi" ]]; then
     fi
 
 elif [[ "$DISTRIB" == "ubuntu" ]]; then
-    # deactivate
-    # Create a new virtualenv using system site packages for numpy and scipy
-    # virtualenv --system-site-packages testenv
-    # source testenv/bin/activate
     pip install -r requirements.txt    
 fi
 
@@ -120,14 +116,6 @@ if [[ "$COVERAGE" == "true" ]]; then
     pip install coveralls
 fi
 
-# pip install neo==0.3.3
-wget https://github.com/NeuralEnsemble/python-neo/archive/master.tar.gz
-tar -xzvf master.tar.gz
-pushd python-neo-master
-python setup.py install
-popd
-
-pip install .
 
 if ! [[ "$DISTRIB" == "ubuntu" ]]; then
     python -c "import numpy; import os; assert os.getenv('NUMPY_VERSION') == numpy.__version__, 'Numpy versions do not match: {0} - {1}'.format(os.getenv('NUMPY_VERSION'), numpy.__version__)"
