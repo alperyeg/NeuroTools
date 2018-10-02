@@ -6,22 +6,21 @@ Unit tests for the spade module.
 """
 from __future__ import division
 import unittest
-import os
-import warnings
 
 import neo
 import numpy as np
-from numpy.testing.utils import assert_array_almost_equal, assert_array_equal
+from numpy.testing.utils import assert_array_equal
 import quantities as pq
-import elephant.spike_train_generation as stg
 import elephant.spade as spade
 import elephant.conversion as conv
 import elephant.spike_train_generation as stg
+
 try:
-    import fim
+    from elephant.spade_src import fim
     HAVE_FIM = True
 except ImportError:
     HAVE_FIM = False
+
 
 class SpadeTestCase(unittest.TestCase):
     def setUp(self):
@@ -116,6 +115,14 @@ class SpadeTestCase(unittest.TestCase):
         assert_array_equal(elements_cpp, [range(self.n_neu)])
         # check the lags
         assert_array_equal(lags_cpp, [np.array([0]*(self.n_neu - 1))])
+
+    # Testing spectrum cpp
+    def test_spade_cpp(self):
+        # Computing Spectrum
+        spectrum_cpp = spade.concepts_mining(self.cpp, self.binsize,
+                                  1,report='#')[0]
+        # Check spectrum
+        assert_array_equal(spectrum_cpp, [(len(self.cpp), len(self.cpp[0]), 1)])
 
     # Testing with multiple patterns input
     def test_spade_msip(self):
