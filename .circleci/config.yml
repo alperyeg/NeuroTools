@@ -40,6 +40,8 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
+            pip install -r requirements-tests.txt
+            pip install -r requirements-extras.txt
             pip install -r .circleci/requirements_testing.txt
             pip install . 
       - save_cache:
@@ -97,6 +99,8 @@ jobs:
             virtualenv venv2
             . venv2/bin/activate
             pip install -r requirements.txt
+            pip install -r requirements-tests.txt
+            pip install -r requirements-extras.txt
             pip install -r .circleci/requirements_testing.txt
             pip install mock  # only needed for Python 2
             pip install . 
